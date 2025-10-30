@@ -1,0 +1,6 @@
+DELETE FROM registros
+WHERE id NOT IN (
+  SELECT MIN(id)
+  FROM registros
+  GROUP BY dni, fecha, entrada
+);

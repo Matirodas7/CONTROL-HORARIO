@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Control semana del 01 al 05 de abril</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>📋 Control semana del 01 al 05 de abril</h2>
+    <table>
+        <tr>
+            <th>DNI</th>
+            <th>Jerarquía</th>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+        </tr>
+        {% for r in registros %}
+        <tr>
+            <td>{{ r[0] }}</td>
+            <td>{{ r[1] }}</td>
+            <td>{{ r[2] }}</td>
+            <td>{{ r[3] }}</td>
+            <td>{{ r[4] }}</td>
+            <td>{{ r[5] if r[5] else '-' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

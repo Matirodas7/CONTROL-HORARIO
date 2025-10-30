@@ -1,0 +1,46 @@
+SELECT * FROM registros
+ORDER BY id DESC;
+#ver los registros ordenados por el ultimo id
+
+SELECT * FROM registros
+ORDER BY entrada_df DESC;
+#ver los registros ordenados por la ultima entrada
+
+INSERT INTO registros (dni, jerarquia, nombre, entrada_dt, sistema_fichaje)
+VALUES ('98765432', 'APCSG', 'PEREZ, JUAN', '2025-09-02 10:30:00', 'Facial');
+#ingresar manualmente registros, en este caso entrada por Facial
+
+INSERT INTO registros (dni, jerarquia, nombre, salida_dt, sistema_fichaje)
+VALUES ('98765432', 'APCSG', 'PEREZ, JUAN', '2025-09-02 10:30:00', 'Huella');
+#ingresar manualmente registros, en este caso salida por Huella
+
+UPDATE registros SET salida_dt = '2025-09-02 18:05:00' WHERE id = 22983;
+#Agrega la salida a un registro desde el id
+
+SELECT setval('registros_id_seq', (SELECT MAX(id) FROM registros));
+#al cargar manualmente un registro se resetea el autoinclemental, luego de eso hay que  volver a correr el hikvision_sync_v2.py
+
+SELECT * FROM registros WHERE entrada_dt::date = '2025-09-02';
+#Busca todos los registros de un dia en especifico
+
+SELECT * FROM registros WHERE dni = '34465003' ORDER BY entrada_dt DESC;
+#Busca todos los registros para una persona por dni desde la ultima entrada
+
+
+SELECT * FROM registros 
+WHERE dni = '33512937' 
+    -- Convierte la fecha a un formato 'Año-Mes' y lo compara con el que buscas
+    AND to_char(entrada_dt, 'YYYY-MM') = '2025-08'
+ORDER BY entrada_dt;
+#ver los registros de ese DNI para el mes de agosto
+
+
+SELECT * FROM registros 
+WHERE dni = '33512937' 
+    AND entrada_dt::date = '2025-08-27'
+ORDER BY entrada_dt;
+#ver los registros de ese DNI para el dia 27-08-2025
+
+
+DELETE FROM registros WHERE id = 22983;
+#borra todo un registro por su id
